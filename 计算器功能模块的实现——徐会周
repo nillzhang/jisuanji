@@ -1,0 +1,22 @@
+# 记录运算历史
+def onClick(key):
+    global  expstr  # 定义全局变量
+    global history_label_obj_list
+    if key == "=":
+        jieguo = round(eval(expstr), 2)# 结果保留2位小数
+        result["text"] = jieguo
+        frame_right.pack()
+        # 将算式记录显示出来
+        t = tkinter.Label(frame_inner, text=expstr + "=" + str(jieguo),
+                            background="seashell")
+        t.pack()
+        history_label_obj_list.append(expstr + "=" + str(jieguo))
+        with open('history.pkl', 'wb') as f:
+            pickle.dump(history_label_obj_list, f)
+        # 容器存储算式记录
+    elif key == "AC":
+        result["text"] = ""
+        expstr = ""
+    else:
+        expstr = expstr + str(key)
+        result["text"] = expstr
